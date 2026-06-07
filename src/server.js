@@ -3,7 +3,7 @@ require('dotenv').config();
 const express      = require('express');
 const cors         = require('cors');
 const morgan       = require('morgan');
-const path         = require('path');
+// const path         = require('path');
 const errorHandler = require('./middleware/errorHandler');
 
 const app = express();
@@ -62,22 +62,42 @@ app.get('/api/dashboard', async (req, res) => {
   }
 });
 
-// ── Servir frontend React (en producción) ─────────────
-app.use(express.static(path.join(__dirname, '../../frontend/dist')));
-app.get('*', (req, res) => {
-  if (!req.path.startsWith('/api')) {
-    res.sendFile(path.join(__dirname, '../../frontend/dist/index.html'));
-  }
+// ── Ruta raíz ──────────────────────────────────────────
+app.get('/', (req, res) => {
+  res.json({
+    sistema:  'Grupo Hummer S.A.C.',
+    version:  '1.0.0',
+    estado:   '✅ Backend funcionando',
+    endpoints: [
+      '/api/almacenes',
+      '/api/proveedores',
+      '/api/clientes',
+      '/api/productos',
+      '/api/entradas',
+      '/api/ventas',
+      '/api/facturas',
+      '/api/guias',
+      '/api/dashboard',
+    ]
+  });
 });
+
+// ── Servir frontend React (en producción) ─────────────
+// app.use(express.static(path.join(__dirname, '../../frontend/dist')));
+// app.get('*', (req, res) => {
+//   if (!req.path.startsWith('/api')) {
+//     res.sendFile(path.join(__dirname, '../../frontend/dist/index.html'));
+//   }
+// });
 
 // ── Manejador de errores (siempre al final) ───────────
-app.use(errorHandler);
+// app.use(errorHandler);
 
 // ── Arrancar servidor ──────────────────────────────────
-const PORT = process.env.PORT || 3000;
-app.listen(PORT, () => {
-  console.log(`\n🚀  Servidor Grupo Hummer S.A.C.`);
-  console.log(`📡  http://localhost:${PORT}`);
-  console.log(`📊  API: http://localhost:${PORT}/api/productos`);
-  console.log(`🔑  Login: POST http://localhost:${PORT}/api/auth/login\n`);
-});
+// const PORT = process.env.PORT || 3000;
+// app.listen(PORT, () => {
+//   console.log(`\n🚀  Servidor Grupo Hummer S.A.C.`);
+//   console.log(`📡  http://localhost:${PORT}`);
+//   console.log(`📊  API: http://localhost:${PORT}/api/productos`);
+//   console.log(`🔑  Login: POST http://localhost:${PORT}/api/auth/login\n`);
+// });
