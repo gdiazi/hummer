@@ -19,8 +19,8 @@ app.use('/api/productos', require('./routes/productos'));
 app.use('/api/clientes',  require('./routes/clientes'));
 app.use('/api/entradas',  require('./routes/entradas'));
 app.use('/api/ventas',    require('./routes/ventas'));
-app.use('/api/facturas',  require('./routes/facturas'));
-app.use('/api/guias',     require('./routes/guias'));
+// app.use('/api/facturas',  require('./routes/facturas'));
+// app.use('/api/guias',     require('./routes/guias'));
 
 app.get('/api/almacenes', async (req, res) => {
   try {
